@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> {{ company.name }} </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2> {{ company.name }} </h2>
+    Finance: {{ company.finance }} </br>
+    </br>
+    Clenove: </br>
+    <ul>
+        {% for user in company.users %}
+        <li> <a href="/powerplants/users/{{ user.id }}" > {{ user.name }} </a> </li>
+        {% endfor %}
+    </ul>
+    {% if count != 0 %}
+    <b> Elektrarny: </b> </br>
+    {% set last = plants[0].type %}
+    <table>
+        <caption> {{ types[last] }}
+        <tr>
+            <th> Cena </th>
+            <th> Vek </th>
+        </tr>
+        {% for plant in plants %}
+            {% if last != plant.type %}
+                </table>
+                {{ types[plant.type] }}
+                <table>   
+                <tr>
+                    <th> Cena </th>
+                    <th> Vek </th>
+                </tr>
+            {% endif %}
+        <tr>
+            <td> {{ plant.cost }} </td>
+            <td> {{ plant.age }} </td>
+        </tr>
+    {% endfor %}
+    </table>
+    {% endif %}
+</body>
