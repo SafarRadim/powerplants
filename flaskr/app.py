@@ -71,7 +71,7 @@ class Plant(db.Model):
 # App routes
 @app.route("/")
 def index():
-    return render_template('powerplants/index.html')
+    return render_template('others/index.html')
 
 @app.route("/akce")
 def akce():
