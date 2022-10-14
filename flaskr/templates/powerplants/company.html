@@ -6,29 +6,30 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2> {{ company.name }} </h2>
-    Finance: {{ company.finance }} </br>
+    <h1> {{ company.name }} </h1>
+    <b> Finance: </b> {{ company.finance }} </br>
     </br>
-    Clenove: </br>
+    <b> Clenove: </b> </br>
     <ul>
         {% for user in company.users %}
         <li> <a href="/powerplants/users/{{ user.id }}" > {{ user.name }} </a> </li>
         {% endfor %}
     </ul>
     {% if count != 0 %}
-    <b> Elektrarny: </b> </br>
-    {% set last = plants[0].type %}
+    <h2> Elektrarny: </h2>
+    {% set vars = {'last':plants[0].type} %}
     <table>
-        <caption> {{ types[last] }}
+        <label> {{ types[vars.last] }} </label>
         <tr>
             <th> Cena </th>
             <th> Vek </th>
         </tr>
         {% for plant in plants %}
-            {% if last != plant.type %}
+            {% if vars.last != plant.type %}
+            {% if vars.update({'last': plant.type}) %} {% endif %}
                 </table>
-                {{ types[plant.type] }}
                 <table>   
+                    <label> {{ types[plant.type] }} </label>
                 <tr>
                     <th> Cena </th>
                     <th> Vek </th>

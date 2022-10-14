@@ -2,37 +2,39 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{ user.name }} </title>
+    <title> {{ user.name }} </title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h2> {{ user.name }} </h2>
+    <h1> {{ user.name }} </h1>
     Firma: <a href="/powerplants/companies/{{ user.company.id }}"> {{ user.company.name }} </a> </br>
-    Finance: {{ user.finance }} </br>
+    <b> Finance: </b> {{ user.finance }} </br>
+
     {% if count != 0 %}
-    <b> Elektrarny: </b> </br>
-    {% set last = plants[0].type %}
-        <table>
-            <caption> {{ types[last] }}
-            <tr>
-                <th> Cena </th>
-                <th> Vek </th>
-            </tr>
-            {% for plant in plants %}
-                {% if last != plant.type %}
-                    </table>
-                    {{ types[plant.type] }}
-                    <table>   
-                    <tr>
-                        <th> Cena </th>
-                        <th> Vek </th>
-                    </tr>
-                {% endif %}
-            <tr>
-                <td> {{ plant.cost }} </td>
-                <td> {{ plant.age }} </td>
-            </tr>
-        {% endfor %}
+    <h2> Elektrarny: </h2>
+    {% set vars = {'last':plants[0].type} %}
+    <table>
+        <label> {{ types[vars.last] }} </label>
+        <tr>
+            <th> Cena </th>
+            <th> Vek </th>
+        </tr>
+        {% for plant in plants %}
+            {% if vars.last != plant.type %}
+            {% if vars.update({'last': plant.type}) %} {% endif %}
+                </table>
+                <table>   
+                    <label> {{ types[plant.type] }} </label>
+                <tr>
+                    <th> Cena </th>
+                    <th> Vek </th>
+                </tr>
+            {% endif %}
+        <tr>
+            <td> {{ plant.cost }} </td>
+            <td> {{ plant.age }} </td>
+        </tr>
+    {% endfor %}
     </table>
     {% endif %}
 </body>
