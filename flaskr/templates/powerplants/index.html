@@ -4,41 +4,42 @@
     <meta charset="UTF-8">
     <title>Elektrarny</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        table, th, td {
-            border: 1px solid black;
-        }
-    </style>
 </head>
 <body>
     <h1>Elektrarny Index</h1>
     <h4>Aneb jak si kdo vede</h4>
     <a href="/powerplants/plants"> Nabidka elektraren </a>, <a href="/powerplants/rules"> Pravidla </a>
-    <table>
-        <caption> Firmy </caption>
-        <tr>
-            <th> Name </th>
-            <th> Finance </th>
-        </tr>
-        {% for company in companies %}
-        <tr>
-            <td> <a href="/powerplants/companies/{{ company.id }}"> {{company.name }} </a> </td>
-            <td> {{ company.finance }} </td>
-        </tr>
-        {% endfor %}
-    </table>
-    </br>
-    <table>
-        <caption> Hraci </caption>
-        <tr>
-            <th> Name </th>
-            <th> Finance </th>
-        </tr>
-    {% for user in users %}
-    <tr>
-        <td> <a href="/powerplants/users/{{ user.id }}"> {{ user.name }}</a> </td>
-        <td> {{ user.finance }} </td>
-    </tr>
-    {% endfor %}
-    </table>
+    <div class="row">
+        <div class="column">
+            <h2> Hraci </h2>
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Finance </th>
+                </tr>
+                {% for user in users %}
+                <tr>
+                    <td> <a href="/powerplants/users/{{ user.id }}"> {{ user.name }}</a> </td>
+                    <td> {{ user.finance }} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="column">
+            <h2> Firmy </h2>
+            <table>
+                <tr>
+                    <th> Name </th>
+                    <th> Finance </th>
+                </tr>
+                {% for company in companies %}
+                <tr>
+                    <td> <a href="/powerplants/companies/{{ company.id }}"> {{company.name }} </a> </td>
+                    <td> {{ company.finance }} </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 </body>

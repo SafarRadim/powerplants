@@ -21,3 +21,31 @@ img {
     max-width: 650px;
     max-height: 800px;
 }
+
+table {
+    width: 80%;
+}
+
+th, td {
+    padding-left: 15px;
+    text-align: left;
+}
+
+td {
+    width: 50%;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
