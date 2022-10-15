@@ -26,8 +26,8 @@
                     <th> Cena </th>
                     <th> Vek </th>
                 </tr>
-            {% for plant in plants %}
-                {% if vars.last != plant.type %}
+            {% for plant in plants if plant.active %}
+            {% if vars.last != plant.type %}
                 {% if vars.update({'last': plant.type}) %} {% endif %}
                 {% if vars.update({'column':vars.column + 1}) %} {% endif %}
             </table>
