@@ -1,5 +1,6 @@
+#!/usr/bin/env python3
+
 from sys import argv
-from database import *
 from app import *
 
 app = create_app()
@@ -51,8 +52,8 @@ def assignPlantCompany(company, plantId):
     plant = Plant.query.filter_by(id = plantId).first()
     company_obj = Company.query.filter_by(name = company).first()
     plant.company_id = company_obj.id
+    company_obj.finance -= plant.cost
     db.session.merge(plant)
-    print(plant.cost)
 
 # Plant funcs
 
@@ -60,6 +61,7 @@ def assignPlantCompany(company, plantId):
 def addPlant(type, cost):
     plant = Plant(type = type, cost = cost, age = 0, active = True)
     db.session.add(plant)
+    print(plant.id)
 
 def removePlant(id):
     plant = Plant.query.filter_by(id = id).first()
