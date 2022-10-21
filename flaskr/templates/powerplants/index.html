@@ -14,13 +14,13 @@
             <h2> Hraci </h2>
             <table>
                 <tr>
-                    <th> Name </th>
-                    <th> Finance </th>
+                    <th class="list"> Name </th>
+                    <th class="list"> Finance </th>
                 </tr>
                 {% for user in users %}
                 <tr>
-                    <td> <a href="/powerplants/users/{{ user.id }}"> {{ user.name }}</a> </td>
-                    <td> {{ user.finance }} </td>
+                    <td class="list"> <a href="/powerplants/users/{{ user.id }}"> {{ user.name }}</a> </td>
+                    <td class="list"> {{ user.finance }} </td>
                 </tr>
                 {% endfor %}
             </table>
@@ -30,13 +30,13 @@
             <h2> Firmy </h2>
             <table>
                 <tr>
-                    <th> Name </th>
-                    <th> Finance </th>
+                    <th class="list"> Name </th>
+                    <th class="list"> Finance </th>
                 </tr>
                 {% for company in companies %}
                 <tr>
-                    <td> <a href="/powerplants/companies/{{ company.id }}"> {{company.name }} </a> </td>
-                    <td> {{ company.finance }} </td>
+                    <td class="list"> <a href="/powerplants/companies/{{ company.id }}"> {{company.name }} </a> </td>
+                    <td class="list"> {{ company.finance }} </td>
                 </tr>
                 {% endfor %}
             </table>
