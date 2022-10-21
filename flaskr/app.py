@@ -80,7 +80,7 @@ def akce():
 
 @app.route("/powerplants")
 def powerplants():
-    users = User.query.all()
+    users = User.query.order_by(User.name)
     companies = Company.query.all()
     return render_template('powerplants/index.html', users = users, companies = companies)
 
