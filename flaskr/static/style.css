@@ -27,16 +27,17 @@ table {
 }
 
 th, td {
-    padding-left: 15px;
-    text-align: left;
-}
-
-td {
-    width: 50%;
+    text-align: center;
+    width: 1%;
 }
 
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+.list {
+    padding-left: 15px;
+    text-align: left;
 }
 
 .column {
