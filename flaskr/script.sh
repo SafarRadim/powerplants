@@ -3,6 +3,7 @@
 print_help () {
     echo "usage: script.sh advance"
     echo "       script.sh add amount people..."
+    echo "       script.sh run"
     echo ""
     echo "       amount - amount of finance to add"
     echo "       people - receiving users"
@@ -30,6 +31,9 @@ case "$1" in
             python3 powerPlants.py plant advance "$i"
             i=$((i + 1))
         done
+        ;;
+    "run")
+        gunicorn --bind 0.0.0.0:5000 wsgi:app
         ;;
     *)
         echo "Uknown arg"
