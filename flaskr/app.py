@@ -12,6 +12,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////home/ubuntu/webpage/flaskr/database.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_AUTOFLUSH'] = False
+    app.config['TEMPLATES_AUTO_RELOAD'] = True
     db.init_app(app)
     return app
 
