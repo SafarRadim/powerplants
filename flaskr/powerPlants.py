@@ -9,23 +9,30 @@ app.app_context().push()
 # User funcs
 
 def addUser(name):
-    user = User(name = name, finance = 0)
+    user = User(name = name, finance = 2)
     db.session.add(user)
 
 def removeUser(name):
     user = User.query.filter_by(name = name).first()
     db.session.delete(user)
 
-def changeFinanceUser(user, change):
-    user = User.query.filter_by(name = user).first()
+def changeFinanceUser(userId, change):
+    user = User.query.get(userId)
     user.finance += change
     db.session.merge(user)
 
-def assignPlantUser(user, plantId):
-    plant = Plant.query.filter_by(id = plantId).first()
-    user = User.query.filter_by(name = user).first()
+def assignPlantUser(userId, plantId):
+    plant = Plant.query.get(plantId)
+    user = User.query.get(userId)
     plant.owner_id = user.id
+    user.finance -= plant.cost
     db.session.merge(plant)
+
+def listUsers():
+    users = User.query.all()
+    print("{:<5}{:<10}{:<5}{}".format("ID", "Name", "C_ID", "Finance"))
+    for user in users:
+        print("{:<5}{:<10}{:<5}{}".format(user.id, user.name, str(user.company_id), user.finance))
 
 # Company funcs
 
@@ -37,23 +44,30 @@ def removeCompany(name):
     company = Company.query.filter_by(name = name).first()
     db.session.delete(company)
 
-def changeFinanceCompany(company, change):
-    company = Company.query.filter_by(name = company).first()
+def changeFinanceCompany(companyId, change):
+    company = Company.query.get(companyId)
     company.finance += change
     db.session.merge(company)
 
-def assignUserCompany(company, user):
-    user = User.query.filter_by(name = user).first()
-    company = Company.query.filter_by(name = company).first()
+def assignUserCompany(companyId, userId):
+    user = User.query.get(userId)
+    company = Company.query.get(compantId)
     user.company_id = company.id
     db.session.merge(user)
 
-def assignPlantCompany(company, plantId):
-    plant = Plant.query.filter_by(id = plantId).first()
-    company_obj = Company.query.filter_by(name = company).first()
-    plant.company_id = company_obj.id
-    company_obj.finance -= plant.cost
+def assignPlantCompany(companyId, plantId):
+    plant = Plant.query.get(plantId)
+    company = Company.query.get(companyId)
+    plant.company_id = company.id
+    company.finance -= plant.cost
     db.session.merge(plant)
+
+def listCompanies():
+    companies = Company.query.all()
+    print("{:<5}{:<25}{}".format("ID", "Name", "Finance"))
+    for company in companies:
+        print("{:<5}{:<25}{}".format(company.id, company.name, company.finance))
+
 
 # Plant funcs
 
@@ -63,8 +77,8 @@ def addPlant(type, cost):
     db.session.add(plant)
     print(plant.id)
 
-def removePlant(id):
-    plant = Plant.query.filter_by(id = id).first()
+def removePlant(plantId):
+    plant = Plant.query.get(plantId)
     db.session.delete(plant)
 
 multipliers = [
@@ -99,9 +113,9 @@ def advanceYear(plant_id):
 
 def listPlants():
     plants = Plant.query.all()
-    print("ID\ttype\tcost\tage\tactive")
+    print("{:<5}{:<5}{:<6}{:<5}{}".format("ID", "Type", "Cost", "Age", "Active"))
     for plant in plants:
-        print("{}\t{}\t{}\t{}\t{}".format(plant.id, plant.type, plant.cost, plant.age, plant.active)) 
+        print("{:<5}{:<5}{:<6}{:<5}{}".format(plant.id, plant.type, plant.cost, plant.age, plant.active)) 
 
 # Combo funcs
 
@@ -127,6 +141,10 @@ def parseArgs():
             assignPlantUser(argv[3], argv[4])
         elif argv[2] == "transfer":
             transferUserCompany(argv[3], argv[4], int(argv[5]))
+        elif argv[2] == "list":
+            listUsers()
+        else:
+            print("I dont know what {} is".format(argv[2]))
     elif argv[1] == "company":
         if argv[2] == "add":
             addCompany(argv[3])
@@ -138,6 +156,10 @@ def parseArgs():
             assignPlantCompany(argv[3], argv[4])
         elif argv[2] == "assignUser":
             assignUserCompany(argv[3], argv[4])
+        elif argv[2] == "list":
+            listCompanies()
+        else:
+            print("I dont know what {} is".format(argv[2]))
     elif argv[1] == "plant":
         if argv[2] == "add":
             addPlant(argv[3], argv[4])
@@ -147,6 +169,10 @@ def parseArgs():
             advanceYear(argv[3])
         elif argv[2] == "list":
             listPlants()
+        else:
+            print("I dont know what {} is".format(argv[2]))
+    else:
+        print("I dont know what {} is".format(argv[1]))
     db.session.commit()
 
 
