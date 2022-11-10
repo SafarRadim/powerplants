@@ -5,11 +5,13 @@ from random import randint
 import os
 
 # App config
+basedir = os.path.abspath("./instance")
+
 db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///./database.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'database.db')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SQLALCHEMY_AUTOFLUSH'] = False
     app.config['TEMPLATES_AUTO_RELOAD'] = True
