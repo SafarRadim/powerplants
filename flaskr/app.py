@@ -90,14 +90,14 @@ def powerplants():
 @app.route("/powerplants/users/<int:id>")
 def user_page(id):
     user = User.query.get(id)
-    plants = Plant.query.filter_by(owner_id = user.id).order_by(Plant.type)
+    plants = Plant.query.filter_by(owner_id = user.id).filter_by(active = True).order_by(Plant.type)
     count = plants.count()
     return render_template('powerplants/user.html', user = user, types = types, plants = plants, count = count)
 
 @app.route("/powerplants/companies/<int:id>")
 def company_page(id):
     company = Company.query.get(id)
-    plants = Plant.query.filter_by(company_id = company.id).order_by(Plant.type)
+    plants = Plant.query.filter_by(company_id = company.id).filter_by(active = True).order_by(Plant.type)
     count = plants.count()
     return render_template('powerplants/company.html', company = company, types = types, plants = plants, count = count)
 
