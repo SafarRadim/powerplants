@@ -119,9 +119,9 @@ def listPlants():
 
 # Combo funcs
 
-def transferUserCompany(user, company, amount):
+def transferUserCompany(user, companyId, amount):
     user = User.query.filter_by(name = user).first()
-    company = Company.query.filter_by(name = company).first()
+    company = Company.query.get(companyId)
     company.finance += amount
     user.finance -= amount
     db.session.merge(user)
