@@ -51,7 +51,7 @@ def changeFinanceCompany(companyId, change):
 
 def assignUserCompany(companyId, userId):
     user = User.query.get(userId)
-    company = Company.query.get(compantId)
+    company = Company.query.get(companyId)
     user.company_id = company.id
     db.session.merge(user)
 
