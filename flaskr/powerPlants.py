@@ -9,21 +9,21 @@ app.app_context().push()
 # User funcs
 
 def addUser(name):
-    user = User(name = name, finance = 2)
+    user = User(name = name, finance = 0)
     db.session.add(user)
 
 def removeUser(name):
     user = User.query.filter_by(name = name).first()
     db.session.delete(user)
 
-def changeFinanceUser(userId, change):
-    user = User.query.get(userId)
+def changeFinanceUser(user, change):
+    user = User.query.filter_by(name = user).first()
     user.finance += change
     db.session.merge(user)
 
-def assignPlantUser(userId, plantId):
+def assignPlantUser(user, plantId):
     plant = Plant.query.get(plantId)
-    user = User.query.get(userId)
+    user = User.query.filter_by(name = user).first()
     plant.owner_id = user.id
     user.finance -= plant.cost
     db.session.merge(plant)
@@ -49,8 +49,8 @@ def changeFinanceCompany(companyId, change):
     company.finance += change
     db.session.merge(company)
 
-def assignUserCompany(companyId, userId):
-    user = User.query.get(userId)
+def assignUserCompany(companyId, user):
+    user = User.query.filter_by(name = user).first()
     company = Company.query.get(companyId)
     user.company_id = company.id
     db.session.merge(user)
@@ -127,6 +127,26 @@ def transferUserCompany(user, companyId, amount):
     db.session.merge(user)
     db.session.merge(company)
 
+def transferUserCurrentCompany(user, amount):
+    user = User.query.filter_by(name = user).first()
+    user.finance -= amount
+    user.company.finance += amount
+    db.session.merge(user)
+    db.session.merge(user.company)
+
+def buyPlantCompany(company_id, plant_type, plant_cost):
+    plant = Plant(type = plant_type, cost = plant_cost, age = 0, active = True)
+    plant.company_id = company_id
+    db.session.add(plant)
+    company = Company.query.get(company_id)
+    company.finance -= plant_cost
+
+def buyPlantUser(user, plant_type, plant_cost):
+    plant = Plant(type = plant_type, cost = plant_cost, age = 0, active = True)
+    user = User.query.filter_by(name = user).first()
+    plant.user_id = user.id
+    user.finance -= plant_cost
+    db.session.add(plant)
 
 # Call tree
 def parseArgs():
@@ -140,7 +160,12 @@ def parseArgs():
         elif argv[2] == "assignPlant":
             assignPlantUser(argv[3], argv[4])
         elif argv[2] == "transfer":
-            transferUserCompany(argv[3], argv[4], int(argv[5]))
+            if len(argv) == 6:
+                transferUserCompany(argv[3], argv[4], int(argv[5]))
+            else:
+                transferUserCurrentCompany(argv[3], int(argv[4]))
+        elif argv[2] == "buy":
+            buyPlantUser(argv[3], int(argv[4]), int(argv[5]))
         elif argv[2] == "list":
             listUsers()
         else:
@@ -156,6 +181,8 @@ def parseArgs():
             assignPlantCompany(argv[3], argv[4])
         elif argv[2] == "assignUser":
             assignUserCompany(argv[3], argv[4])
+        elif argv[2] == "buy":
+            buyPlantCompany(argv[3], int(argv[4]), int(argv[5]))
         elif argv[2] == "list":
             listCompanies()
         else:
@@ -176,7 +203,6 @@ def parseArgs():
     db.session.commit()
 
 
-# main == main
-
+# __name__:== main
 if __name__ == "__main__":
     parseArgs()
