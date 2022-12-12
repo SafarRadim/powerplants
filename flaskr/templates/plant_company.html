@@ -1,0 +1,55 @@
+{% extends "plant_base.html"%}
+{% block title %} Index {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1> {{ company.name }} </h1>
+<b> Finance: </b> {{ company.finance }} </br>
+</br>
+<b> Clenove: </b> </br>
+<ul>
+    {% for user in company.users %}
+    <li> <a href="/powerplants/users/{{ user.id }}" > {{ user.name }} </a> </li>
+    {% endfor %}
+</ul>
+{% if count != 0 %}
+<h2> Elektrarny: </h2>
+{% set vars = {'last':plants[0].type, 'column':0} %}
+<div class="row">
+    <div class="column">
+        <h2> {{ types[vars.last] }} </h2>
+        <table>
+            <tr>
+                <th> Cena </th>
+                <th> Vek </th>
+            </tr>
+        {% for plant in plants if plant.active %}
+        {% if vars.last != plant.type %}
+            {% if vars.update({'last': plant.type}) %} {% endif %}
+            {% if vars.update({'column':vars.column + 1}) %} {% endif %}
+        </table>
+    </div>
+        {% if vars.column % 2 == 0 %}
+</div>
+<div class="row">
+        {% endif %}
+    <div class="column">
+        <h2> {{ types[plant.type] }} </h2>
+        <table>   
+            <tr>
+                <th> Cena </th>
+                <th> Vek </th>
+            </tr>
+        {% endif %}
+            <tr>
+                <td> {{ plant.cost }} </td>
+                <td> {{ plant.age }} </td>
+            </tr>
+    {% endfor %}
+            </table>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

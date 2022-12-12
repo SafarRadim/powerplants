@@ -1,0 +1,44 @@
+{% extends "plant_base.html"%}
+{% block title %} Index {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1>Elektrarny Index</h1>
+<h4>Aneb jak si kdo vede</h4>
+<a href="/powerplants/plants"> Nabidka elektraren </a>, <a href="/powerplants/rules"> Pravidla </a>
+<div class="row">
+    <div class="column">
+        <h2> Hraci </h2>
+        <table>
+            <tr>
+                <th class="list"> Name </th>
+                <th class="list"> Finance </th>
+            </tr>
+            {% for user in users %}
+            <tr>
+                <td class="list"> <a href="/powerplants/users/{{ user.id }}"> {{ user.name }}</a> </td>
+                <td class="list"> {{ user.finance }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <div class="column">
+        <h2> Firmy </h2>
+        <table>
+            <tr>
+                <th class="list"> Name </th>
+                <th class="list"> Finance </th>
+            </tr>
+            {% for company in companies %}
+            <tr>
+                <td class="list"> <a href="/powerplants/companies/{{ company.id }}"> {{company.name }} </a> </td>
+                <td class="list"> {{ company.finance }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

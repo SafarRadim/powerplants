@@ -1,0 +1,224 @@
+{% extends "plant_base.html"%}
+{% block title %} Index {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1> Celorocni hra - Elektrarny </h1>
+Aneb jak dotahnout lidi na schuzky  </br>
+
+<h2> Zakladni info  </h2>
+Cilem hry je mit na kon ci co nejvice mnozstvi financi, ktere se daji ziskat pomoci provozovanim elektraren, pravidelnou ucasti atd.  </br>
+Energeticke kredity jsou ziskavany pomoci elektraren, ktere jsou koupitelne od hry ci od ostatnich hracu. </br>
+
+<h2> Prijem financi </h2>
+Finance hraci mohou ziskat nekolika zpusoby </br>
+<ul>
+    <li> Zucastneni se schuzky ci akce </li>
+    <li> Provozovanim elektrarny </li>
+    <li> Prodejem elektrarny jinemu hraci </li>
+    <li> Darem od jineho hrace </li>
+</ul>
+<h3> Zucastneni se schuzky ci akce </h3>
+Za kazdou ucast schuzky dostava hrac 2.000 financi.   </br>
+Za kazdou ucast akce dostava hrac 5.000 financi.   </br>
+Za oznamenou (omluvenou) neucast dostava hrac az 75% z plneho zisku.  </br> 
+<h3> Provozovanim elektrarny </h3>
+Provozem elektrarny hrac dostava kazdy tyden urcity pocet financi. </br>
+Kolik dostane je ` Cena elektrarny * nasobic * 0.1 `.   </br>
+<h3> Prodejem elektrarny jinemu hraci </h3>
+Hraci si mohou za domluvenou cenu mezi sebou prodavat elektrarny.   </br>
+Spodni ani vrchni hranice nejsou stanoveny, vsechno je na domluve mezi hraci.   </br>
+<h3> Darem od jineho hrace </h3>
+Hraci si mohou navzajem libovolne darovat finance.   </br>
+<h2> Elektrarny </h2>
+Elektraren je nekolik druhu, kazda ma jinou "krivku vyroby". </br>
+Seznam elektraren: </br>
+<ul>
+    <li> Fotovoltaicke elektrarny </li>
+    <li> Vodni elektrarny </li>
+    <li> Tepelne elektrarny </li>
+    <li> Jadnerne elektrarny </li>
+</ul>
+K nakupu bude dostupnych pouze nekolik elektraren kazdou schuzku. </br>
+<h3> Fotovoltaicke elektrarny </h3>
+Nejlevnejsi elektrarny. Maji rychly navrat investice, ale nevydrzi dlouho. </br>
+Cena     10.000 - 15.000   </br> 
+<table>
+   <tr>
+       <td> Rok </td>
+       <td> 1 </td>
+       <td> 2 </td>
+       <td> 3 </td>
+       <td> 4 </td>
+       <td> 5 </td>
+   </tr>
+   <tr>
+       <td> Produkce </td>
+       <td> 4 </td>
+       <td> 4 </td>
+       <td> 3 </td>
+       <td> 2 </td>
+       <td> x </td>
+       <td> 13 </td>
+       <td style="width:6%"> </td>
+   </tr>
+</table>
+</br>
+<h3> Vodni elektrarny </h3>
+Mirne drazsi nez fotovoltaicke. Pomalejsi narust, maji ale delsi zivotnost. </br>
+Cena     15.000 - 22.500   </br>
+<table>
+    <tr>
+        <td> Rok </td>
+        <td> 1 </td>
+        <td> 2 </td>
+        <td> 3 </td>
+        <td> 4 </td>
+        <td> 5 </td>
+        <td> 6 </td>
+        <td> 7 </td>
+        <td> 8 </td>
+        <td> 9 </td>
+    </tr>
+    <tr>
+        <td> Produkce </td>
+        <td> 0 </td>
+        <td> 1 </td>
+        <td> 2 </td>
+        <td> 3 </td>
+        <td> 4 </td>
+        <td> 4 </td>
+        <td> 3 </td>
+        <td> 2 </td>
+        <td> x </td>
+        <td> 19 </td>
+    </tr>
+</table>
+</br>
+<h3> Tepelne elektrarny </h3>
+Pomerne drazsi elektrarny. Maji pomalejsi nabeh, ale produkuji delsi dobu. </br>
+Cena     25.000 - 37.500   </br>
+
+<table>
+    <tr>
+        <td> Rok </td>
+        <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 5 </td>
+            <td> 6 </td>
+            <td> 7 </td>
+            <td> 8 </td>
+            <td> 9 </td>
+            <td> 10 </td>
+        </tr>
+        <tr>
+            <td> Produkce </td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 3 </td>
+            <td> 2 </td>
+        </tr>
+        <tr>
+            <td> Rok </td>
+            <td> 11 </td>
+            <td> 12 </td>
+            <td> 13 </td>
+        </tr>
+        <tr>
+            <td> Produkce </td>
+            <td> 2 </td>
+            <td> 1 </td>
+            <td> x </td>
+            <td> 25 </td>
+        </tr>
+    </table>
+     </br>
+     <h3> Jaderne elektrarny </h3>
+    Nejdrazsi elektrarny. Maji velmi opozdeni nabeh, ale produkuji hodne dlouho. </br>
+    Cena     50.000 - 75.000   </br>
+    <table>
+        <tr>
+            <td> Rok </td>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 5 </td>
+            <td> 6 </td>
+            <td> 7 </td>
+            <td> 8</td>
+            <td> 9 </td>
+            <td> 10 </td>
+        </tr>
+        <tr>
+            <td> Produkce </td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td> 0 </td>
+            <td> 1 </td>
+            <td> 1 </td>
+            <td> 2 </td>
+            <td> 2 </td>
+            <td> 3 </td>
+        </tr>
+        <tr>
+            <td> Rok </td>
+            <td> 11 </td>
+            <td> 12 </td>
+            <td> 13 </td>
+            <td> 14 </td>
+            <td> 15 </td>
+            <td> 16 </td>
+            <td> 17 </td>
+            <td> 18 </td>
+            <td> 19 </td>
+            <td> 20 </td>
+        </tr>
+        <tr>
+            <td> Produkce </td>
+            <td> 3 </td>
+            <td> 3 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 4 </td>
+            <td> 3 </td>
+            <td> 3 </td>
+        </tr>
+        <tr>
+            <td> Rok </td>
+            <td> 21 </td>
+            <td> 22 </td>
+            <td> 23 </td>
+            <td> 24 </td>
+            <td> 25 </td>
+        </tr>
+        <tr>
+            <td> Produkce </td>
+            <td> 2 </td>
+            <td> 1 </td>
+            <td> 1 </td>
+            <td> 1 </td>
+            <td> x </td>
+            <td> 50 </td>
+        </tr>
+    </table>
+    <h2> Firmy </h2>
+    Hraci mohou spolu zakladat firmy, pomoci kterych mohou kupovat a prodavat elektrarny.  </br>
+    Firmy funguji na podilech. Tj. kazdy hrac ve firme drzi jistou cast (podil), hraci se tak mohou pridavat odkoupenim podilu ci naopak prodanim podilu. </br>
+    Majetek firmy a jeji finance jsou nezavisle na majetcich a financich clenu, tj. hrac muze mit vlastni elektrarny i kdyz bude ve firme. </br>
+{% endblock %}

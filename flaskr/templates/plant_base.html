@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title> {% block title %} TITLE {% endblock %} </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <header><a href="/powerplants">Index</a></header>
+    {% block content %} BODY {% endblock %}
+</body>

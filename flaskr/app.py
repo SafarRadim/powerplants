@@ -74,40 +74,40 @@ class Plant(db.Model):
 # App routes
 @app.route("/")
 def index():
-    return render_template('others/index.html')
+    return render_template('index.html')
 
 @app.route("/akce")
 def akce():
-    return render_template('others/akce.html')
+    return render_template('akce.html')
 
 
 @app.route("/powerplants")
 def powerplants():
     users = User.query.order_by(User.name)
     companies = Company.query.all()
-    return render_template('powerplants/index.html', users = users, companies = companies)
+    return render_template('plant_index.html', users = users, companies = companies)
 
 @app.route("/powerplants/users/<int:id>")
 def user_page(id):
     user = User.query.get(id)
     plants = Plant.query.filter_by(owner_id = user.id).filter_by(active = True).order_by(Plant.type)
     count = plants.count()
-    return render_template('powerplants/user.html', user = user, types = types, plants = plants, count = count)
+    return render_template('plant_user.html', user = user, types = types, plants = plants, count = count)
 
 @app.route("/powerplants/companies/<int:id>")
 def company_page(id):
     company = Company.query.get(id)
     plants = Plant.query.filter_by(company_id = company.id).filter_by(active = True).order_by(Plant.type)
     count = plants.count()
-    return render_template('powerplants/company.html', company = company, types = types, plants = plants, count = count)
+    return render_template('plant_company.html', company = company, types = types, plants = plants, count = count)
 
 @app.route("/powerplants/plants")
 def plant_page():
-    return render_template("powerplants/plants.html", types = types, prices = prices, amount = 4)
+    return render_template("plant_plants.html", types = types, prices = prices, amount = 4)
 
 @app.route("/powerplants/rules")
 def rules_page():
-    return render_template("powerplants/rules.html")
+    return render_template("plant_rules.html")
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0")
